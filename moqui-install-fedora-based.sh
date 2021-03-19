@@ -1,24 +1,24 @@
 
-if [ ! $1 ]; then echo "Usage: ./moqui-install-debian-based.sh <path to install moqui>"; exit 1; fi
+if [[ ! $1 ]]; then echo "Usage: ./moqui-install-debian-based.sh <path to install moqui>"; exit 1; fi
 
 # config stuff
 gradleVersion=5.6.4
 jreVersion=1.8.0
-javaVerison=8
+javaVerison=${jreVersion:2:1}
 dir=$(pwd)
 
 # make sure to install git
-if [ $(apt list --installed | grep gradle) ]; then echo "git is already installed"
-else echo -e "install git by running: sudo apt -y install git\n"; fi
+#if [[ $(apt list --installed | grep gradle) ]]; then echo 'git is already installed'
+#else echo "install git by running: sudo apt -y install git"; fi
 
 # java install and configure
-if [ $(java -version 2>&1 | grep $jreVersion)  ]; then echo "java $javaVerison already installed"
+if [[ $(java -version 2>&1 | grep $jreVersion)  ]]; then echo "java $javaVerison already installed"
 elif [ -d /usr/lib/jvm/java-$jreVersion-openjdk ]; then echo "update java default to java-1.$javaVerison.0 by running: sudo update-alternatives --config java";
 else echo -e "install java $javaVerison by running: sudo apt -y install openjdk-$jreVersion-jre"; fi
 
 # gradle install and configure
-function install_gradle {
-  if [ $(cat ~/.bashrc | grep gradle) ]; then echo "remove the line in ~/.bashrc that has gradle in it";
+function install_gradle() {
+  if [[ $(cat ~/.bashrc | grep gradle) ]]; then echo "remove the line in ~/.bashrc that has gradle in it";
   else wget https://services.gradle.org/distributions/gradle-$gradleVersion-bin.zip; unzip -q gradle-$gradleVersion-bin.zip -x ~/; rm gradle-$gradleVersion-bin.zip
     echo -e "# adding gradle to path\nexport PATH=$PATH:~/gradle-$gradleVersion/bin" >> ~/.bashrc; source ~/.bashrc; echo 'installed gradle $gradleVersion and added it to path'; fi
 }
@@ -43,5 +43,6 @@ if [[ $(gradle -version 2>&1 | grep $gradleVersion) && $(java -version 2>&1 | gr
     echo -e $'\nSuccessfully installed moqui at $1. \n\tTo get a component, for example: HiveMind, run: gradle getComponent -Pcomponent=HiveMind\n\tTo run Moqui, run: java -jar moqui.war\n\tFor more information visit https://moqui.org'; fi
 else
   cd $dir; echo -e $'\nTo get moqui running, follow the instructions above and then run this script again!'; fi
+
 
 
