@@ -1,4 +1,5 @@
 
+echo "warning! this probably doesn't work"
 if [[ ! $1 ]]; then echo "Usage: ./moqui-install-debian-based.sh <path to install moqui>"; exit 1; fi
 
 # config stuff

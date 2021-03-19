@@ -18,8 +18,8 @@ tar -zvxf ideaI*.tar.gz
 rm -f ideaI*.tar.gz
 mv -f idea-I* intellij
 echo "installed intellij"
+add_to_path
 cd intellij/bin
 ./idea.sh &
 cd $dir
-add_to_path
 fi
