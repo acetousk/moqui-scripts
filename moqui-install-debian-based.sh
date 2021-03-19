@@ -3,6 +3,10 @@
 dir=$(pwd)
 cd ~
 
+# make sure to install git
+if [[ $(apt list --installed | grep gradle) ]]; then echo 'git is already installed'
+else sudo apt install git
+
 # java install and configure
 if [[ $(java -version 2>&1 | grep "1.8.0") ]]; then echo "java 8 already installed"
 elif [ -d "/usr/lib/jvm/java-1.8.0-openjdk"]; then echo "update java default to java-1.8.0 by running: sudo update-alternatives --config java";
