@@ -5,7 +5,7 @@ cd ~
 
 # make sure to install git
 if [[ $(apt list --installed | grep gradle) ]]; then echo 'git is already installed'
-else sudo apt install git
+else echo "install git by running: sudo apt -y install git"; fi
 
 # java install and configure
 if [[ $(java -version 2>&1 | grep "1.8.0") ]]; then echo "java 8 already installed"
