@@ -14,7 +14,7 @@ else echo -e "install git by running: sudo apt -y install git\n"; exit 1; fi
 # java install and configure
 if [[ $(java -version 2>&1 | grep "$jreVersion" | wc -l) -gt 0 ]]; then echo "java $javaVerison already installed"
 elif [[ $(find /usr/lib/jvm/ -type d -name "java-$javaVersion*" | wc -l) -gt 0 ]]; then echo "update java default to java-$javaVersion-openjdk by running: sudo update-alternatives --config java";
-else echo -e "install java $javaVersion by running: sudo apt -y install openjdk-$javaVersion-jre"; exit 1; fi
+else echo -e "install java $javaVersion by running: sudo apt -y install openjdk-$javaVersion-jdk"; exit 1; fi
 
 # gradle install and configure
 function install_gradle {
